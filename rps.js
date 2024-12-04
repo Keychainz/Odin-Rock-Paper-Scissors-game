@@ -50,5 +50,44 @@ function getHumanChoice()
     }
 }
 
-console.log(getComputerChoice());
-console.log(getHumanChoice());
+function playRound(humanChoice, computerChoice)
+{
+    if(humanChoice == "Rock")
+    {
+        if(computerChoice == "Paper")
+        {
+            computerScore++;
+        }
+        else if(computerChoice == "Scissors")
+        {
+            userScore++;
+        }
+    }
+    else if(humanChoice == "Paper")
+    {
+        if(computerChoice == "Rock")
+        {
+            userScore++;
+        }
+        else if(computerChoice == "Scissors")
+        {
+            computerScore++;
+        }
+    }
+    else if(humanChoice == "Scissors")
+        {
+            if(computerChoice == "Paper")
+            {
+                userScore++;
+            }
+            else if(computerChoice == "Rock")
+            {
+                computerScore++;
+            }
+        }
+}
+
+let computerScore = 0;
+let userScore = 0;
+
+playRound(getHumanChoice(), getComputerChoice());
