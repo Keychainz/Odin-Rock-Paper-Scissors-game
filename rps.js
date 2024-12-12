@@ -136,7 +136,21 @@ function playGame(x)
     }
 }
 
-let userScore = 0;
-let computerScore = 0;
+// get element IDs for start button and scores
+const startButton = document.getElementById("start-button");
+const userScoreElement = document.querySelector("#user-score p");
+const computerScoreElement = document.querySelector("#computer-score p");
 
-playGame(5);
+
+// Add event listener to the button
+startButton.addEventListener("click", () => {
+    // Reset scores to 0 before starting a new game
+    userScore = 0;
+    computerScore = 0;
+
+    userScoreElement.textContent = userScore;
+    computerScoreElement.textContent = computerScore;
+
+    // Call the playGame function
+    playGame(5); // Play 5 rounds
+});

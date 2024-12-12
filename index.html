@@ -5,16 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- <script src="rps.js"></script>  -->
 </head>
 <body>
-    <div class="top-half"></div>
-    <div class="bottom-half">
-        <div class="selection">
-            <button>ROCK</button>
-            <button>PAPER</button>
-            <button>SCISSORS</button>
+    <div class="top-half">
+        <div class="announcement-text">
+            <h1>Wanna Play a Game?</h1>
+        </div>
+        <div id="computer-score">
+            <p></p>
         </div>
     </div>
+    <div class="bottom-half">
+        <div class="selection">
+            <button id="start-button">START</button>
+        </div>
+        <div class="user-pick">
+            <h1></h1>
+        </div>
+        <div id="user-score">
+            <p></p>
+        </div>
+    </div>
+
+    <script src="rps.js"></script> 
 </body>
 </html>
