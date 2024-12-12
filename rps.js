@@ -48,18 +48,30 @@ function getHumanChoice()
     }
 }
 
+function incrementUserScore() 
+{
+    userScore++; // Increment the score
+    userScoreElement.textContent = userScore; // Update the display
+}
+
+function incrementComputerScore() 
+{
+    computerScore++; // Increment the score
+    computerScoreElement.textContent = computerScore; // Update the display
+}
+
 function playRound(humanChoice, computerChoice)
 {
     if(humanChoice == "Rock")
     {
         if(computerChoice == "Scissors")
         {
-            userScore++;
+            incrementUserScore();
             console.log("You win this round, Rock beats Scissors!")
         }
         else if(computerChoice == "Paper")
         {
-            computerScore++;
+            incrementComputerScore();
             console.log("Loser, Paper beats Rock!")
         }
         else
@@ -71,12 +83,12 @@ function playRound(humanChoice, computerChoice)
     {
         if(computerChoice == "Rock")
         {
-            userScore++;
+            incrementUserScore();
             console.log("You win this round, Paper beats Rock!")
         }
         else if(computerChoice == "Scissors")
         {
-            computerScore++;
+            incrementComputerScore();
             console.log("Loser, Scissors beats Paper!")
         }
         else
@@ -88,12 +100,12 @@ function playRound(humanChoice, computerChoice)
     {
         if(computerChoice == "Paper")
         {
-            userScore++;
+            incrementUserScore();
             console.log("You win this round, Scissors beats Paper!")
         }
         else if(computerChoice == "Rock")
         {
-            computerScore++;
+            incrementComputerScore();
             console.log("Loser, Rock beats Scissors!")
         }
         else
@@ -105,6 +117,8 @@ function playRound(humanChoice, computerChoice)
 
 function playGame(x)
 {
+    announcementTextElement.textContent = "Choose Your Hand";
+
     for(let i=0; i<x; i++)
     {
         let userChoice = getHumanChoice();
@@ -136,10 +150,11 @@ function playGame(x)
     }
 }
 
-// get element IDs for start button and scores
+// get element IDs for start button, scores, and announcement text
 const startButton = document.getElementById("start-button");
 const userScoreElement = document.querySelector("#user-score p");
 const computerScoreElement = document.querySelector("#computer-score p");
+const announcementTextElement = document.querySelector(".announcement-text h1");
 
 
 // Add event listener to the button
