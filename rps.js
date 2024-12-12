@@ -1,4 +1,40 @@
 
+
+function getHumanChoice() {
+    return new Promise((resolve) => {
+        // Disable the buttons until a choice is made
+        rockButton.disabled = false;
+        paperButton.disabled = false;
+        scissorsButton.disabled = false;
+
+        rockButton.addEventListener("click", () => {
+            userChoice = "Rock";
+            resolve(userChoice);
+            disableButtons();
+        });
+
+        paperButton.addEventListener("click", () => {
+            userChoice = "Paper";
+            resolve(userChoice);
+            disableButtons();
+        });
+
+        scissorsButton.addEventListener("click", () => {
+            userChoice = "Scissors";
+            resolve(userChoice);
+            disableButtons();
+        });
+    });
+}
+
+// Disable buttons after a choice has been made
+function disableButtons() {
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
+}
+
+
 function getComputerChoice()
 {
     let computerChoice = Math.floor(Math.random() * 3);
@@ -14,37 +50,6 @@ function getComputerChoice()
     else if(computerChoice === 2)
     {
         return "Scissors";
-    }
-}
-
-function getHumanChoice()
-{
-    let validInput = false;
-
-    while(!validInput)
-    {
-        let userChoice = prompt("Enter Rock, Paper, or Scissors?");
-
-        if(userChoice.toLowerCase() == "rock")
-        {
-            validInput = true;
-            return "Rock";
-        }
-        else if(userChoice.toLowerCase() == "paper")
-        {
-            validInput = true;
-            return "Paper";
-        }
-        else if(userChoice.toLowerCase() == "scissors" || userChoice.toLowerCase() == "scissor")
-        {
-            validInput = true;
-            return "Scissors";
-        }
-        else
-        {
-            console.log("Not an option, try again");
-        }
-
     }
 }
 
@@ -125,12 +130,6 @@ function playGame(x)
         let computerChoice = getComputerChoice();
 
         playRound(userChoice, computerChoice);
-
-        // console.log(`User: ${userChoice}`);
-        // console.log(`Computer: ${computerChoice}`);
-
-        // console.log(`User Score: ${userScore}`);
-        // console.log(`Computer Score: ${computerScore}`);
     }
 
     console.log(`User Score: ${userScore}`);
@@ -150,16 +149,40 @@ function playGame(x)
     }
 }
 
+
 // get element IDs for start button, scores, and announcement text
 const startButton = document.getElementById("start-button");
 const userScoreElement = document.querySelector("#user-score p");
 const computerScoreElement = document.querySelector("#computer-score p");
 const announcementTextElement = document.querySelector(".announcement-text h1");
+const selectionDiv = document.querySelector(".selection");
+let rockButton, paperButton, scissorsButton;
 
 
 // Add event listener to the button
 startButton.addEventListener("click", () => {
-    // Reset scores to 0 before starting a new game
+
+    startButton.remove();
+
+    
+    rockButton = document.createElement("button");
+    rockButton.textContent = "Rock";
+    rockButton.id = "rock-button";
+
+    paperButton = document.createElement("button");
+    paperButton.textContent = "Paper";
+    paperButton.id = "paper-button";
+
+    scissorsButton = document.createElement("button");
+    scissorsButton.textContent = "Scissors";
+    scissorsButton.id = "scissors-button";
+
+    
+    selectionDiv.appendChild(rockButton);
+    selectionDiv.appendChild(paperButton);
+    selectionDiv.appendChild(scissorsButton);
+
+    
     userScore = 0;
     computerScore = 0;
 
