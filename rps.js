@@ -47,6 +47,54 @@ function incrementComputerScore()
     computerScoreElement.textContent = computerScore; // Update the display
 }
 
+function createGameButtons() 
+{
+    rockButton = document.createElement("button");
+    rockButton.textContent = "Rock";
+    rockButton.id = "rock-button";
+
+    paperButton = document.createElement("button");
+    paperButton.textContent = "Paper";
+    paperButton.id = "paper-button";
+
+    scissorsButton = document.createElement("button");
+    scissorsButton.textContent = "Scissors";
+    scissorsButton.id = "scissors-button";
+
+    selectionDiv.appendChild(rockButton);
+    selectionDiv.appendChild(paperButton);
+    selectionDiv.appendChild(scissorsButton);
+}
+
+function playAgainButton() 
+{
+    const playAgainButton = document.createElement("button");
+    playAgainButton.textContent = "Play Again";
+    playAgainButton.id = "play-again-button";
+    selectionDiv.innerHTML = ""; // Clear existing buttons
+    selectionDiv.appendChild(playAgainButton);
+
+    playAgainButton.addEventListener("click", () => {
+        // Reset game state
+        userScore = 0;
+        computerScore = 0;
+
+        userScoreElement.textContent = userScore;
+        computerScoreElement.textContent = computerScore;
+        announcementTextElement.textContent = "";
+        userPickTextElement.textContent = "";
+
+        // Remove "Play Again" button
+        playAgainButton.remove();
+
+        // Recreate Rock, Paper, Scissors buttons
+        createGameButtons();
+
+        // Restart the game
+        playGame(n); // Best out of n
+    });
+}
+
 // Function to delay execution
 function delay(ms) 
 {
@@ -69,6 +117,7 @@ async function announceCycle(userChoice, computerChoice)
 
         await delay(600); // Wait .6 second before showing the next announcement
     }
+    await delay(400);
 }
 
 function playRound(humanChoice, computerChoice) 
@@ -78,22 +127,16 @@ function playRound(humanChoice, computerChoice)
         if (computerChoice == "Scissors") 
         {
             incrementUserScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "You win this round, Rock beats Scissors!";
-            }, 600); // .6-second delay
+            announcementTextElement.textContent = "You win this round, Rock beats Scissors!";
         } 
         else if (computerChoice == "Paper")
         {
             incrementComputerScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "Loser, Paper beats Rock!";
-            }, 600);
+            announcementTextElement.textContent = "Loser, Paper beats Rock!";
         } 
         else
         {
-            setTimeout(() => {
-                announcementTextElement.textContent = "We both went Rock! Lets try again";
-            }, 600);
+            announcementTextElement.textContent = "We both went Rock! Lets try again";
         }
     } 
     else if (humanChoice == "Paper") 
@@ -101,22 +144,16 @@ function playRound(humanChoice, computerChoice)
         if (computerChoice == "Rock") 
         {
             incrementUserScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "You win this round, Paper beats Rock!";
-            }, 600);
+            announcementTextElement.textContent = "You win this round, Paper beats Rock!";
         } 
         else if (computerChoice == "Scissors") 
         {
             incrementComputerScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "Loser, Scissors beats Paper!";
-            }, 600);
+            announcementTextElement.textContent = "Loser, Scissors beats Paper!";
         } 
         else 
         {
-            setTimeout(() => {
-                announcementTextElement.textContent = "We both went Paper! Lets try again";
-            }, 600);
+            announcementTextElement.textContent = "We both went Paper! Lets try again";
         }
     }
     else if (humanChoice == "Scissors") 
@@ -124,26 +161,19 @@ function playRound(humanChoice, computerChoice)
         if (computerChoice == "Paper") 
         {
             incrementUserScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "You win this round, Scissors beats Paper!";
-            }, 600);
+            announcementTextElement.textContent = "You win this round, Scissors beats Paper!";
         } 
         else if (computerChoice == "Rock") 
         {
             incrementComputerScore();
-            setTimeout(() => {
-                announcementTextElement.textContent = "Loser, Rock beats Scissors!";
-            }, 600);
-        } 
+            announcementTextElement.textContent = "Loser, Rock beats Scissors!";
+        }
         else 
         {
-            setTimeout(() => {
-                announcementTextElement.textContent = "We both went Scissors! Lets try again";
-            }, 600);
+            announcementTextElement.textContent = "We both went Scissors! Lets try again";
         }
     }
 }
-
 
 async function playGame(x)
 {
@@ -162,7 +192,7 @@ async function playGame(x)
         playRound(userChoice, computerChoice);
 
         // Add a delay after the winner/loser announcement
-        await delay(5000); // Wait 5 seconds before the next round
+        await delay(3000); // Wait 5 seconds before the next round
         userPickTextElement.textContent = "";
     }
 
@@ -185,8 +215,12 @@ async function playGame(x)
         announcementTextElement.textContent = "TIE!";
         console.log("TIE!")
     }
+
+    // Display "Play Again" button
+    playAgainButton();
 }
 
+const n = 3; // Number of games
 
 // get element IDs for start button, scores, and announcement text
 const startButton = document.getElementById("start-button");
@@ -203,23 +237,7 @@ startButton.addEventListener("click", () => {
 
     startButton.remove();
 
-    
-    rockButton = document.createElement("button");
-    rockButton.textContent = "Rock";
-    rockButton.id = "rock-button";
-
-    paperButton = document.createElement("button");
-    paperButton.textContent = "Paper";
-    paperButton.id = "paper-button";
-
-    scissorsButton = document.createElement("button");
-    scissorsButton.textContent = "Scissors";
-    scissorsButton.id = "scissors-button";
-
-    
-    selectionDiv.appendChild(rockButton);
-    selectionDiv.appendChild(paperButton);
-    selectionDiv.appendChild(scissorsButton);
+    createGameButtons();
 
     
     userScore = 0;
@@ -229,5 +247,5 @@ startButton.addEventListener("click", () => {
     computerScoreElement.textContent = computerScore;
 
     // Call the playGame function
-    playGame(1); // Best out of n
+    playGame(n); // Best out of n
 });
