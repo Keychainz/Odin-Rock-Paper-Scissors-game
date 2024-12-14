@@ -6,7 +6,7 @@ body {
   }
 
   .top-half {
-    background-color: greenyellow;
+    background-color: rgb(29, 234, 29);
     flex: 1; /* Takes up half the screen */
   }
   

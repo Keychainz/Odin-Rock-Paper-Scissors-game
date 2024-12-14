@@ -1,40 +1,20 @@
 
-
 function getHumanChoice() {
     return new Promise((resolve) => {
-        // Disable the buttons until a choice is made
-        rockButton.disabled = false;
-        paperButton.disabled = false;
-        scissorsButton.disabled = false;
-
+        // Add event listeners to buttons to capture the user's choice
         rockButton.addEventListener("click", () => {
-            userChoice = "Rock";
-            resolve(userChoice);
-            disableButtons();
-        });
+            resolve("Rock");
+        }, { once: true }); // Ensures the event listener is removed after the first click
 
         paperButton.addEventListener("click", () => {
-            userChoice = "Paper";
-            resolve(userChoice);
-            disableButtons();
-        });
+            resolve("Paper");
+        }, { once: true });
 
         scissorsButton.addEventListener("click", () => {
-            userChoice = "Scissors";
-            resolve(userChoice);
-            disableButtons();
-        });
+            resolve("Scissors");
+        }, { once: true });
     });
 }
-
-// Disable buttons after a choice has been made
-function disableButtons() {
-    rockButton.disabled = true;
-    paperButton.disabled = true;
-    scissorsButton.disabled = true;
-}
-
-
 function getComputerChoice()
 {
     let computerChoice = Math.floor(Math.random() * 3);
@@ -120,13 +100,13 @@ function playRound(humanChoice, computerChoice)
     }
 }
 
-function playGame(x)
+async function playGame(x)
 {
     announcementTextElement.textContent = "Choose Your Hand";
 
     for(let i=0; i<x; i++)
     {
-        let userChoice = getHumanChoice();
+        let userChoice = await getHumanChoice(); 
         let computerChoice = getComputerChoice();
 
         playRound(userChoice, computerChoice);
